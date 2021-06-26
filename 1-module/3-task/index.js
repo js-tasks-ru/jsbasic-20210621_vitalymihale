@@ -1,7 +1,6 @@
 function ucFirst(str) {
-  if (Boolean(str) === false) {
+  if (!str) {
     return '';
-  } else {
-    return str[0].toUpperCase() + str.substring(1, str.length);
   }
+  return str[0].toUpperCase() + str.substring(1, str.length);
 }
