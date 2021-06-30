@@ -1,7 +1,7 @@
 function sumSalary(salaries) {
   let sumOfSalaries = 0;
   for (const key in salaries) {
-    if (typeof salaries[key] === 'number' && !isNaN(salaries[key]) && isFinite(salaries[key])) {
+    if (typeof salaries[key] === 'number' && isFinite(salaries[key])) {
       sumOfSalaries += salaries[key];
     }
   }
