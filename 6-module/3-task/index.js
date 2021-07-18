@@ -62,13 +62,13 @@ export default class Carousel {
     const arrowLeft = container.querySelector('.carousel__arrow_left');
     const arrowRight = container.querySelector('.carousel__arrow_right');
 
-    const widthOfSlide = carouselInner.firstElementChild.offsetWidth;
     const countOfSlides = carouselInner.children.length;
     let position = 0;
 
     arrowLeft.style.display = 'none'; //Изначально левая стрелка переключения не видна
 
     container.addEventListener('click', (event) => {
+      const widthOfSlide = container.querySelector('.carousel__inner').firstElementChild.offsetWidth;
 
       if (event.target.closest('.carousel__arrow_right')) {
         console.log(widthOfSlide);
