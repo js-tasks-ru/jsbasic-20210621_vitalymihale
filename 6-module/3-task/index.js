@@ -30,35 +30,34 @@ export default class Carousel {
   constructor(slides) {
     this._slides = slides;
     this.elem = this._carousel;
+    this._switchArrows(this.elem);
     this._customEvent();
   }
 
   //Получить div с классом carousel__inner и слайдами
   get _carouselInner() {
-    const div = document.createElement('div');
-    div.classList.add('carousel__inner');
+    const div = createElement(`<div class="carousel__inner"></div>`);
     this._slides.forEach(slide => {
       div.insertAdjacentHTML('beforeend', slideTemplate({
         name: slide.name,
         price: slide.price,
         image: slide.image,
         id: slide.id
-      }));
-    });
+      }));});
     return div;
   }
 
   //Собираем итоговую карусель
   get _carousel() {
-    const div = document.createElement('div');
-    div.classList.add('carousel');
-    div.insertAdjacentHTML('afterbegin', buttonsTemplate());
+    const div = (createElement(`<div class="carousel">
+                                ${buttonsTemplate()}
+                                </div>`));
     div.append(this._carouselInner);
     return div;
   }
 
   //Метод реализации кнопок переключения слайдов
-  switchArrows(container) {
+  _switchArrows(container) {
     const carouselInner = container.querySelector('.carousel__inner');
     const arrowLeft = container.querySelector('.carousel__arrow_left');
     const arrowRight = container.querySelector('.carousel__arrow_right');
@@ -72,6 +71,7 @@ export default class Carousel {
     container.addEventListener('click', (event) => {
 
       if (event.target.closest('.carousel__arrow_right')) {
+        console.log(widthOfSlide);
         position -= widthOfSlide;
       }
 

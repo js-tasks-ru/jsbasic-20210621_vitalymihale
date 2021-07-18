@@ -23,7 +23,7 @@ function headerTemplate() {
                   <th>Город</th>
                   <th></th>
               </tr>
-          </thead>`
+          </thead>`;
 }
 
 //Верстка строки таблицы
@@ -34,7 +34,7 @@ function rowTemplate(row) { //верстка строки
             <td>${row.salary}</td>
             <td>${row.city}</td>
             <td><button>X</button></td>
-          </tr>`
+          </tr>`;
 }
 
 //Класс, формирующий итоговую таблицу
@@ -60,9 +60,11 @@ export default class UserTable {
 
   //Обработчик события нажатия кнопки (удаление строки)
   _removeRow() {
-    this.elem.addEventListener('click', (event) => {
-      if (event.target.tagName !== 'BUTTON') return;
-      event.target.closest('tr').remove();
-    });
+    this.elem.querySelector('tbody').childNodes.forEach(child => {
+      child.addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON') {
+          event.target.closest('tr').remove();
+        }
+      }, {once: true});});
   }
 }

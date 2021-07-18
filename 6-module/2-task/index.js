@@ -31,17 +31,16 @@ export default class ProductCard {
 
   //Возвращается div карточки товара
   get _card() {
-    const div = document.createElement('div');
-    div.classList.add('card');
-    div.insertAdjacentHTML('afterbegin', divTemplate({image: this._image, price: this._price, name: this._name}));
-    return div;
+    return createElement(`<div class="card">
+                                ${divTemplate({image: this._image, price: this._price, name: this._name})}
+                               </div>`);
   }
 
   //Создает пользовательское событие при нажатии на кнопку +
   _getEvent() {
     this.elem.addEventListener('click', (event) => {
-      if (!event.target.closest('.card__button')) {return;}
-      this.elem.dispatchEvent(new CustomEvent('product-add', {detail: this._id, bubbles: true}));
-      }, {once: true});
+      if (!event.target.closest('.card__button')) return;
+      this.elem.dispatchEvent(new CustomEvent('product-add', {detail: this._id, bubbles: true}));},
+      {once: true});
   }
 }
