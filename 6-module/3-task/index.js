@@ -71,7 +71,6 @@ export default class Carousel {
       const widthOfSlide = container.querySelector('.carousel__inner').firstElementChild.offsetWidth;
 
       if (event.target.closest('.carousel__arrow_right')) {
-        console.log(widthOfSlide);
         position -= widthOfSlide;
       }
 
