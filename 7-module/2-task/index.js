@@ -52,7 +52,7 @@ export default class Modal {
   //Реализация кнопки закрытия модального окна
   _closeButton() {
     this._modal.querySelector('.modal__close').addEventListener('click', () => {
-      this._modal.remove();
+      this.close();
       document.body.classList.remove('is-modal-open');
     }, {once: true});
   }
@@ -61,7 +61,7 @@ export default class Modal {
   _escButton() {
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
-        this._modal.remove();
+        this.close();
         document.body.classList.remove('is-modal-open');
       }
     });
