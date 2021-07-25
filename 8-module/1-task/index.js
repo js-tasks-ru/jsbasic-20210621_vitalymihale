@@ -39,6 +39,43 @@ export default class CartIcon {
   }
 
   updatePosition() {
-    // ваш код ...
+
+    //Проверка, что корзина появилась
+    if (this.elem.offsetHeight === 0 && this.elem.offsetWidth === 0) return;
+
+    let containerCoord = document.querySelector('.container').getBoundingClientRect();
+    let leftCoord = containerCoord.right + 20;
+    let rightCoord = document.documentElement.clientWidth - this.elem.offsetWidth - 10;
+
+    //Координаты точки, при прокрутке через которую корзина будет менять позиционирование
+    let topCoord = this.elem.offsetTop - window.pageYOffset;
+
+    if (document.documentElement.clientWidth <= 767) {
+      Object.assign(this.elem.style, {
+        position: '',
+        top: '',
+        right: '',
+        left: '',
+        zIndex: 100
+      });
+    } else {
+      if (topCoord < 0) {
+        Object.assign(this.elem.style, {
+          position: 'fixed',
+          top: '50px',
+          right: '10px',
+          left: `${Math.min(leftCoord, rightCoord)}px`,
+          zIndex: 100
+        });
+      } else {
+        Object.assign(this.elem.style, {
+          position: '',
+          top: '',
+          right: '',
+          left: '',
+          zIndex: ''
+        });
+      }
+    }
   }
 }
