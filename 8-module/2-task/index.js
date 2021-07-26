@@ -5,19 +5,19 @@ export default class ProductGrid {
   constructor(products) {
     this.products = products;
     this.filters = {};
-    this._productGrid();
+    this._renderProductGrid();
   }
 
   //Получаем список отсортированных карточек
-  _productGrid() {
+  _renderProductGrid() {
     this.elem = createElement(`<div class="products-grid">
                                         <div class="products-grid__inner"></div>
                                     </div>`);
-    this._getCards();
+    this._appendCardsToGrid();
   }
 
   //Сортируем карточки и добавляем их в this.elem
-  _getCards() {
+  _appendCardsToGrid() {
     const div = this.elem.querySelector('.products-grid__inner');
     div.innerHTML = '';
 
@@ -35,7 +35,7 @@ export default class ProductGrid {
   //Обновляем фильтры, при этом остаются предыдущие значения this.filters
   updateFilter(filters) {
     Object.assign(this.filters, filters);
-    this._getCards();
+    this._appendCardsToGrid();
   }
 }
 

@@ -34,7 +34,9 @@ export default class Modal {
 
   //Тело модального окна
   setBody(element) {
-    this._modal.querySelector('.modal__body').append(element);
+    let modalBody = this._modal.querySelector('.modal__body');
+    modalBody.innerHTML = '';
+    modalBody.append(element);
   }
 
   //Открытие модального окна: добавление модального окна на страницу в body

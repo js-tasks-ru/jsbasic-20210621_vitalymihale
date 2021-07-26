@@ -106,18 +106,18 @@ export default class Cart {
   }
 
   renderModal() {
-    let modal = new Modal();
-    modal.setTitle('Your order');
-    const div = createElement('<div></div>');
+    this._modal = new Modal();
+    this._modal.setTitle('Your order');
+    const modalBody = createElement('<div></div>');
     this.cartItems.forEach(item => {
-      div.append(this.renderProduct(item.product, item.count));
+      modalBody.append(this.renderProduct(item.product, item.count));
     });
-    div.append(this.renderOrderForm());
-    modal.setBody(div);
-    modal.open();
+    modalBody.append(this.renderOrderForm());
+    this._modal.setBody(modalBody);
+    this._modal.open();
 
     //Реализация уменьшения и увеличения количества товара в модальном окне
-    div.addEventListener('click', (event) => {
+    modalBody.addEventListener('click', (event) => {
       if (!event.target.closest('.cart-counter__button')) return;
       let productId = event.target.closest('.cart-product').dataset.productId;
 
@@ -130,7 +130,7 @@ export default class Cart {
       }
     });
 
-    div.querySelector('.cart-form').addEventListener('submit', (event) => {
+    modalBody.querySelector('.cart-form').addEventListener('submit', (event) => {
       this.onSubmit(event);
     }, {once: true});
   }
@@ -149,8 +149,7 @@ export default class Cart {
       infoPrice.innerHTML = `€${this.getTotalPrice().toFixed(2)}`;
 
       if (this.isEmpty()) {
-        document.querySelector('.modal').remove();
-        document.body.classList.remove('is-modal-open');
+        this._modal.close();
       }
     }
     this.cartIcon.update(this);
@@ -168,15 +167,15 @@ export default class Cart {
 
     responsePromise
       .then(() => {
-        document.querySelector('.modal__title').textContent = 'Success!';
+        this._modal.setTitle('Success!');
         this.cartItems.length = 0;
-        document.querySelector('.modal__body').innerHTML = `<div class="modal__body-inner">
+        this._modal.setBody(createElement(`<div class="modal__body-inner">
                                                                   <p>
                                                                     Order successful! Your order is being cooked :) <br>
                                                                     We’ll notify you about delivery time shortly.<br>
                                                                     <img src="../../assets/images/delivery.gif">
                                                                   </p>
-                                                                </div>`;
+                                                                </div>`));
       });
   }
 
