@@ -82,6 +82,11 @@ export default class RibbonMenu {
   _selectCategory() {
     const ribbonInner = this.elem.querySelector('.ribbon__inner');
 
+    //Чтобы была выделена с самого начала категория All
+    const firstElement = ribbonInner.firstElementChild;
+    firstElement.classList.add('ribbon__item_active');
+    this.value = firstElement.dataset.id;
+
     this.elem.addEventListener('click', (event) => {
 
       if (!(event.target.tagName === "A")) return;

@@ -18,19 +18,19 @@ function sliderTemplate({value, steps}) {
 
 //Класс, формирующий слайдер
 export default class StepSlider {
-  constructor({ steps, value = 0 }) {
+  constructor({ steps, value}) {
     this._steps = steps;
-    this._value = value;
+    this.value = value;
     this.elem = this._slider;
     this._dragAndDrop();
   }
 
   //Сборка слайдера
   get _slider() {
-    const slider = createElement(sliderTemplate({value: this._value, steps: this._steps}));
+    const slider = createElement(sliderTemplate({value: this.value, steps: this._steps}));
     for (let i = 0; i < this._steps; i++) {
       const span = createElement(`<span></span>`);
-      if (i === this._value) {
+      if (i === this.value) {
         span.classList.add('slider__step-active');
       }
       slider.querySelector('.slider__steps').append(span);

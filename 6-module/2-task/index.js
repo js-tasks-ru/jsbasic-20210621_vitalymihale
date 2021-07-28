@@ -40,7 +40,6 @@ export default class ProductCard {
   _getEvent() {
     this.elem.addEventListener('click', (event) => {
       if (!event.target.closest('.card__button')) return;
-      this.elem.dispatchEvent(new CustomEvent('product-add', {detail: this._id, bubbles: true}));},
-      {once: true});
+      this.elem.dispatchEvent(new CustomEvent('product-add', {detail: this._id, bubbles: true}));});
   }
 }
