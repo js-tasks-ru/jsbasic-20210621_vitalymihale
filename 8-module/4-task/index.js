@@ -76,7 +76,7 @@ export default class Cart {
               <img src="../../assets/images/icons/square-plus-icon.svg" alt="plus">
             </button>
           </div>
-          <div class="cart-product__price">€${product.price.toFixed(2)}</div>
+          <div class="cart-product__price">€${(product.price * count).toFixed(2)}</div>
         </div>
       </div>
     </div>`);
@@ -148,7 +148,10 @@ export default class Cart {
       productPrice.innerHTML = `€${(cartItem.product.price * cartItem.count).toFixed(2)}`;
       infoPrice.innerHTML = `€${this.getTotalPrice().toFixed(2)}`;
 
-      if (this.isEmpty()) {
+      //Убрать верстку продукта из модального окна, если его count стал равен 0
+      if (cartItem.count === 0 && !this.isEmpty()) {
+        document.querySelector(`[data-product-id="${cartItem.product.id}"]`).remove();
+      } else if (this.isEmpty()) {
         this._modal.close();
       }
     }
@@ -158,6 +161,9 @@ export default class Cart {
   onSubmit(event) {
     event.preventDefault();
     event.target.querySelector('.btn-group__button').classList.add('is-loading');
+
+    //Сделать иконку корзинки невидимой после того, как была отправлена форма (оставалась видимой)
+    this.cartIcon.elem.classList.remove('cart-icon_visible');
     const formData = new FormData(event.target);
 
     const responsePromise = fetch('https://httpbin.org/post', {
